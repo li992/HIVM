@@ -13,7 +13,7 @@
    session_start(); 
    if(isset($_SESSION["email"]))
   {// redirect the user back to the login page
-   header("Location: home.php");
+   header("Location: index.php");
    exit();
    }
  ?>
@@ -24,9 +24,9 @@
 <!-- # = top start -->
 <div id ="topper">
 
-<a href="./home.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
-<a href="./home.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
-<a href="./home.php"><h1 id="regiserbutton_header" style="vertical-align:middle"><span>Register </span></h1></a>
+<a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
+<a href="./index.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
+<a href="./index.php"><h1 id="regiserbutton_header" style="vertical-align:middle"><span>Register </span></h1></a>
 </div> 
 <!-- end top -->
 <p id="Page_Sign">Sign In</p>
@@ -95,7 +95,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
                  {echo "successfully login";
                  session_start();
                  $_SESSION["email"] = $email;
-                 header("Location: home.php");
+                 header("Location: index.php");
                  $db->close();
                  exit();
                   

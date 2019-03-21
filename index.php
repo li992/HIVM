@@ -11,9 +11,9 @@
 <!-- # = top start -->
 <div id ="topper">
 
-<a href="./home.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
-<a href="./home.php"><h1 id="firstbutton_header"       >Home     </h1></a>
-<a href="./home.php"><h1 id="secondbutton_header"    >About   </h1></a>
+<a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
+<a href="./index.php"><h1 id="firstbutton_header"       >Home     </h1></a>
+<a href="./index.php"><h1 id="secondbutton_header"    >About   </h1></a>
    <?php
                session_start(); 
                if(isset($_SESSION["email"]))
@@ -26,8 +26,8 @@
                $row = $r1->fetch_assoc();
                $FisrtName=$row['FirstName'];
                $LastName=$row["LastName"];
-               echo"<a href='./home.php'><h1 id='Prescriptionbutton_header'> Prescription </h1> </a>";
-               echo"<a href='./home.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
+               echo"<a href='./index.php'><h1 id='Prescriptionbutton_header'> Prescription </h1> </a>";
+               echo"<a href='./index.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
                echo"<a href='./SignOut.php'><h1 id='Signoutbutton_header'>SignOut </h1> </a>";
                }
 else
@@ -41,7 +41,7 @@ echo"<a href='./Register.php'><h1 id='regiserbutton_header' style='vertical-alig
 <td class="appointment_td">
 </td>
 <td  class="appointment_td">
-<a href="./home.php" class ='blacklink'><h2 id="make_appointment_button">make appointment     </h2></a> 
+<a href="./index.php" class ='blacklink'><h2 id="make_appointment_button">make appointment     </h2></a> 
 </td>
 <td class="appointment_td">
 </td>
