@@ -1,17 +1,14 @@
 <?php
-$serverName="hivm.database.windows.net";
-    $connectionOptions = array(
-   		 "Database"=> "HIVM",
-   		 "UID"=>"GroupUser",
-   		 "PWD"=>"hivm-admin01"
-    );
-    
-    $conn = sqlsrv_connect($serverName,$connectionOptions);
-    if($conn){
-   	 echo"connection established.<br/>";
-    }
-    else{
-   	 echo"Connection could not be established.<br/>";
-   	 die(print_r(sqlsrv_errors(),true));
-    }
+$servername = "hercules.cs.uregina.ca";
+$username = "feng209j";
+$password = "qazwsx88";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully";
 ?>

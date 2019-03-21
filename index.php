@@ -18,9 +18,12 @@
    <?php
                session_start(); 
                if(isset($_SESSION["email"]))
-               {$db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
+               {$db = new mysqli("hercules.cs.uregina.ca", "feng209j", "qazwsx88", "feng209j");
                if ($db->connect_error)
-               {die ("Connection failed: " . $db->connect_error );}   
+               {
+				   echo"Connect cannot be established";
+				   die ("Connection failed: " . $db->connect_error );
+				   }   
                $email=$_SESSION["email"];
                $q1="SELECT * FROM Patient WHERE email='$email'";  	
                $r1=$db->query($q1);
