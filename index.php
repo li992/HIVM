@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<?php include '/ConnectionFile/connection.php';?>
+<?php include '/ConnectionFile/Connection.php';?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  
-    <script type="text/javascript" src="HIVM_Javascript_main.js"> </script>
-       <link rel="stylesheet" href="HIVM_Stylesheet_main.css">
+    <script type="text/javascript" src="./js/HIVM_Javascript_main.js"> </script>
+       <link rel="stylesheet" href="./css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM</title>
 </head>
