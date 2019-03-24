@@ -3,6 +3,21 @@
 <head>
  
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
+    <script type="text/javascript">
+	document.getElementById("Submit").addEventListener("click",HealthCardValid(),false);
+    
+	function Validation_HealthCard() {
+		  var txt;
+		  var valid=false;
+		  var HealthCard = prompt("Please enter your HealthCardNumber:", "ie. 123456789");
+		  if (HealthCard == null || HealthCard == "") {
+		    txt="";
+		  } else {
+		    txt = HealthCard;
+		  }
+		  document.getElementById("demo").innerHTML = txt;
+		}
+    </script>
        <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM Sign In</title>
@@ -28,6 +43,7 @@
 <a href="./About.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
 <a href="./Register.php"><h1 id="regiserbutton_header" style="vertical-align:middle"><span>Register </span></h1></a>
 </div> 
+
 <!-- end top -->
 <p id="Page_Sign">Sign In</p>
 <form id="SignIn" method="post" action="SignIn.php" enctype="multipart/form-data">    
@@ -45,7 +61,8 @@
 <td></td>
 </tr>
 </table>
-<input type="submit" value="Sign In" class="sign1" />
+<input type="hidden" value="" id="healthcard"/>
+<input type="submit" value="Sign In" class="sign1" id="Submit" />
 <input type="reset" value="Reset" class="sign2"/>
 </form>
 <?php

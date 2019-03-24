@@ -7,15 +7,21 @@ $a_date=$_REQUEST["date"];
 if($type==1)
 {
 
-if($a_date=="" ||$a_date==null)
-{
-$a_date=date("Y-m-d");
-}
 
 $db = mysqli_connect("localhost", "feng209j", "qazwsx88", "feng209j");
                if ($db->connect_error)
                {die ("Connection failed: " . $db->connect_error );}
-              $q1="SELECT * FROM appointmentDB where patient_id='$user_id' AND appointmen_date <='$a_date'";	
+if($a_date=="" ||$a_date==null)
+{
+$a_date=date("Y-m-d");
+$q1="SELECT * FROM appointmentDB where patient_id='$user_id' AND appointmen_date <='$a_date'";	
+}
+else
+{
+
+$q1="SELECT * FROM appointmentDB where patient_id='$user_id' AND appointmen_date ='$a_date'";	
+
+}
                 $r1=$db->query($q1);  
                 $allRowst=array();
                 $allRows=array();

@@ -52,7 +52,7 @@ $a_date = date("Y-m-d");
 echo $a_date;
 echo "'";
 ?>
- value="mm/dd/yyyy"/></td>
+ value="yyyy-mm-dd"/></td>
 <td><label id="DOB_msg" class="err_msg"></label></td>
 </tr>
 <tr>
@@ -94,7 +94,7 @@ $validateS = true;
 $error = "";
 $reg_Email = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
 $reg_Pswd = "/^\S*$/";
-$reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
+$reg_Bday = "/((0?[13578]|10|12)(-|\/)((0[0-9])|([12])([0-9]?)|(3[01]?))(-|\/)((\d{4})|(\d{2}))|(0?[2469]|11)(-|\/)((0[0-9])|([12])([0-9]?)|(3[0]?))(-|\/)((\d{4}|\d{2})))/";
 $reg_Uname = "/^[a-zA-Z0-9_-]+$/";
 $email_msg = "";
 $birth_msg = "";

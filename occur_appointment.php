@@ -11,8 +11,8 @@
 <!-- # = top start -->
 <div id ="topper">
 
-<a href="./home.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
-<a href="./home.php"><h1 id="firstbutton_header"       >Home     </h1></a>
+<a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
+<a href="./index.php"><h1 id="firstbutton_header"       >Home     </h1></a>
 <a href="./About.php"><h1 id="secondbutton_header"    >About   </h1></a>
    <?php
                session_start(); 
@@ -27,7 +27,7 @@
                $FisrtName=$row['FirstName'];
                $LastName=$row["LastName"];
                echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";
-               echo"<a href='./home.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
+               echo"<a href='./index.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
                echo"<a href='./SignOut.php'><h1 id='Signoutbutton_header'>SignOut </h1> </a>";
                }
 else
@@ -76,8 +76,8 @@ echo"<section id='Select_Doctor'>";
 echo"<section id='calender'>";
 echo "<h4 style='display:inline-block;'>using ---> to select the month     </h4>";
 echo"<input type='date'  id='appointmentdate'  oninput='caldener_update(event)' ";
-echo" min='20";
-$a_date = date("y-m-d",strtotime()); 
+echo" min='";
+$a_date = date("Y-m-d",strtotime(' +2 day')); 
 echo $a_date;
 echo"'/>";
 

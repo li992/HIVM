@@ -51,11 +51,10 @@ $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
                $r1=$db->query($q1);
                $row = $r1->fetch_assoc();
                $user_id=$row["user_id"];
-               $a_date=date("Y-m-d");
+if($row["Specialty"]=="PATIENT")
+{               $a_date=date("Y-m-d");
                $q2="SELECT DISTINCT doctor_id  FROM appointmentDB where patient_id='$user_id'  AND appointmen_date <='$a_date' "; 
                $r2=$db->query($q2);
-
-
 
 //select area start
 echo"<div id='select_area' value='0'>";
@@ -109,7 +108,22 @@ echo"</section>";
 echo"</section>";
 }
 
+}
+else
+{
 
+
+
+
+
+
+
+
+
+
+
+
+}
 
 ?>
 

@@ -195,7 +195,7 @@ $db = mysqli_connect("localhost", "feng209j", "qazwsx88", "feng209j");
 
 //appoinment table
             
-               echo"<table id='table_center'><tr><td><h2>Medicla Histroy:<h2></td></tr>";
+               echo"<table class='h3_center'><tr><td><h2>Medicla Histroy:<h2></td></tr>";
                
                $q2="SELECT * FROM  appointmentDB WHERE appointment_id='$doctro_id'";  	
                $r2=$db->query($q2);              
