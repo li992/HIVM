@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  
-    <script type="text/javascript" src="./js/HIVM_Javascript_main.js"> </script>
-       <link rel="stylesheet" href="./css/HIVM_Stylesheet_main.css">
+    <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
+       <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM Sign In</title>
 </head>
@@ -25,8 +25,8 @@
 <div id ="topper">
 
 <a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
-<a href="./index.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
-<a href="./index.php"><h1 id="regiserbutton_header" style="vertical-align:middle"><span>Register </span></h1></a>
+<a href="./About.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
+<a href="./Register.php"><h1 id="regiserbutton_header" style="vertical-align:middle"><span>Register </span></h1></a>
 </div> 
 <!-- end top -->
 <p id="Page_Sign">Sign In</p>
@@ -66,8 +66,8 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
         die ("Connection failed: " . $db->connect_error );
     }
     
-    $q1 = "SELECT * FROM Patient WHERE email = '$email'";
-    $q2 = "SELECT * FROM Patient WHERE email = '$email' && password='$password'";
+    $q1 = "SELECT * FROM UserInfo WHERE email = '$email'";
+    $q2 = "SELECT * FROM UserInfo WHERE email = '$email' && pwd='$password'";
         $emailMatch = preg_match($reg_Email, $email);
         if($email == null || $email == "" || $emailMatch == false)
         {

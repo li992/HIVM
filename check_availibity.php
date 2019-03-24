@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  
-    <script type="text/javascript" src="./js/HIVM_Javascript_main.js"> </script>
-       <link rel="stylesheet" href="./css/HIVM_Stylesheet_main.css">
+    <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
+       <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM Check Avaiblity</title>
 </head>
@@ -13,7 +13,7 @@
 
 <a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
 <a href="./index.php"><h1 id="firstbutton_header"       >Home     </h1></a>
-<a href="./index.php"><h1 id="secondbutton_header"    >About   </h1></a>
+<a href="./About.php"><h1 id="secondbutton_header"    >About   </h1></a>
    <?php
                session_start(); 
                if(isset($_SESSION["email"]))
@@ -86,9 +86,14 @@ echo"</label>";
 <td class="checktd">
 <div class="dropdown">
 <span class="check_span">Select Date</span>
-<div class="dropdown-content">
-<input type="date" name="appointmentdate" />
-</div>
+
+<?php
+echo"<input type='date' name='appointmentdate'";
+echo" min='20";
+$a_date = date("y-m-d",strtotime(' +2 day')); 
+echo $a_date;
+echo"'/>";
+?>
 </div>
 </td>
 

@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  
-    <script type="text/javascript" src="./js/HIVM_Javascript_main.js"> </script>
-       <link rel="stylesheet" href="./css/HIVM_Stylesheet_main.css">
+    <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
+       <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM Register</title>
 </head>
@@ -25,7 +25,7 @@
 <div id ="topper">
 
 <a href="./index.php"><img src="./img/core-img/BRAND_header.jpg" alt="Brand_header"/></a>
-<a href="./index.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
+<a href="./About.php"><h1 id="firstbutton_header"       >Home    </h1></a> 
 <a href="./SignIn.php"><h1 id="signinbutton_header">Sign In </h1> </a>
 </div> 
 <!-- end top -->
@@ -45,7 +45,14 @@
 </tr>
 <tr>
 <td>Date of Birth:</td>
-<td><input type="text" name="DOB" id="DOB" size="30" value="mm/dd/yyyy"/></td>
+<td><input type="date" name="DOB" id="DOB" size="30"
+<?php
+echo " max='"; 
+$a_date = date("Y-m-d");
+echo $a_date;
+echo "'";
+?>
+ value="mm/dd/yyyy"/></td>
 <td><label id="DOB_msg" class="err_msg"></label></td>
 </tr>
 <tr>
@@ -81,16 +88,16 @@
 </form>
 
 
-<!-- respond to submit form --!>
+<!-- respond to submit form -->
 <?php
 $validateS = true;
 $error = "";
 $reg_Email = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
 $reg_Pswd = "/^\S*$/";
-$reg_Bday = "/^\d{1,2}\/\d{1,2}\/\d{4}$/";
+$reg_Bday = "/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/";
 $reg_Uname = "/^[a-zA-Z0-9_-]+$/";
 $email_msg = "";
-$birth_msg = "mm/dd/yyyy";
+$birth_msg = "";
 $pswd_msg="";
 $pswds_msg="";
 $Lastname_msg="";
@@ -100,13 +107,14 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
 {      
     $Firstname_msg=trim($_POST["FirstName"]);
     $Lastname_msg=trim($_POST["LastName"]);
-    $HeadthCardNumber_msg=trim($_POST["HeadthCardNumber"]);
+    $HeadthCardNumber_msg=trim($_POST["HeathCardNumber"]);
     $PhoneNumber_msg=trim($_POST["PhoneNumber"]);      
     $email_msg = trim($_POST["email"]);
+    $email_msg =strtoupper($email_msg);
     $birth_msg = trim($_POST["DOB"]);
     $pswd_msg = trim($_POST["password"]);
     $pswdr_msg = trim($_POST["passwordr"]);
-  
+
     $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
 
     if ($db->connect_error)
@@ -114,7 +122,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
         die ("Connection failed: " . $db->connect_error );
     }
     
-    $q1 = "SELECT * FROM Patient WHERE email = '$email_msg'";
+    $q1 = "SELECT * FROM UserInfo WHERE email = '$email_msg'";
     $r1 = $db->query($q1);
 
     // if the email address is already taken.
@@ -168,7 +176,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
         // variables in the form are: emailS, passwordS, dateFormatS, 
   
 
-           $q2 = "INSERT INTO Patient (email, FirstName, LastName , password, DOB, Phone, HeathCardNumber) VALUES ('$email_msg', '$Firstname_msg', '$Lastname_msg', '$pswd_msg', '$dateFormatS', '$PhoneNumber_msg', '$HeadthCardNumber_msg' )";
+           $q2 = "INSERT INTO UserInfo (email, FirstName, LastName , pwd, DOB, Phone, HealthCardNumber, Specialty) VALUES ('$email_msg', '$Firstname_msg', '$Lastname_msg', '$pswd_msg', '$dateFormatS', '$PhoneNumber_msg', '$HeadthCardNumber_msg', 'PATIENT')";
        
   
 
