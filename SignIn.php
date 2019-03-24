@@ -13,9 +13,14 @@
 		  if (HealthCard == null || HealthCard == "") {
 		    txt="";
 		  } else {
-		    txt = HealthCard;
+			  if(HealthCard.length==9){
+				  txt = HealthCard;
+			  }
+			  else{
+				  txt="";
+			  }
 		  }
-		  document.getElementById("demo").innerHTML = txt;
+		  document.getElementById("healthcard").value = txt;
 		}
     </script>
        <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
@@ -70,12 +75,14 @@ $email="";
 $password="";
 $reg_Email = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
 $reg_Pswd = "/^\S*$/";
+$reg_hc = "/^{9}[0-9]$/";
 $validateS = true;
 if (isset($_POST["submittedS"]) && $_POST["submittedS"])
 { 
 
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
+    $healthcard= trim($_POST["healthcard"]);
     
    $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
     if ($db->connect_error)
@@ -91,8 +98,11 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
             $validateS = false;
             echo "<h class='err_msg'>email empty or incorrect formula</h><br/>";
         }
-                $pswdLenS = strlen($password);
+        $pswdLenS = strlen($password);
         $pswdMatch = preg_match($reg_Pswd, $password);
+        $hcLenS = strlen($healthcard);
+        $hcMatch = preg_match($reg_hc,$healthcard);
+        
         if($password == null || $password == "" || $pswdLenS < 8 || $pswdMatch ==false )
         {
             $validateS = false;
@@ -100,6 +110,13 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
 
         }
 
+        if($healthcard == null || $healthcard == "" || $hcLenS < 8 || $hcMatch ==false )
+        {
+            $validateS = false;
+            echo "<h class='err_msg'>Healthcard empty or incorrect formula</h><br/>";
+            
+        }
+        
           if($validateS==true)
          {$r1 = $db->query($q1);   
             if($r1->num_rows == 0)
