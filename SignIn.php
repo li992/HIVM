@@ -4,8 +4,6 @@
  
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
     <script type="text/javascript">
-	document.getElementById("Submit").addEventListener("click",HealthCardValid(),false);
-    
 	function Validation_HealthCard() {
 		  var txt;
 		  var valid=false;
@@ -67,7 +65,7 @@
 </tr>
 </table>
 <input type="hidden" value="" id="healthcard"/>
-<input type="submit" value="Sign In" class="sign1" id="Submit" />
+<input type="submit" value="Sign In" class="sign1" id="Submit" onclick="Validation_HealthCard()" />
 <input type="reset" value="Reset" class="sign2"/>
 </form>
 <?php
@@ -75,7 +73,6 @@ $email="";
 $password="";
 $reg_Email = "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/";
 $reg_Pswd = "/^\S*$/";
-$reg_hc = "/^{9}[0-9]$/";
 $validateS = true;
 if (isset($_POST["submittedS"]) && $_POST["submittedS"])
 { 
@@ -92,6 +89,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     
     $q1 = "SELECT * FROM UserInfo WHERE email = '$email'";
     $q2 = "SELECT * FROM UserInfo WHERE email = '$email' && pwd='$password'";
+    $q3 = "SELECT * FROM UserInfo WHERE email = '$email' && pwd='$password' && HealthCardNumber='$healthcard'";
         $emailMatch = preg_match($reg_Email, $email);
         if($email == null || $email == "" || $emailMatch == false)
         {
@@ -101,7 +99,6 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
         $pswdLenS = strlen($password);
         $pswdMatch = preg_match($reg_Pswd, $password);
         $hcLenS = strlen($healthcard);
-        $hcMatch = preg_match($reg_hc,$healthcard);
         
         if($password == null || $password == "" || $pswdLenS < 8 || $pswdMatch ==false )
         {
@@ -110,7 +107,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
 
         }
 
-        if($healthcard == null || $healthcard == "" || $hcLenS < 8 || $hcMatch ==false )
+        if($healthcard == null || $healthcard == "" || $hcLenS <> 9 )
         {
             $validateS = false;
             echo "<h class='err_msg'>Healthcard empty or incorrect formula</h><br/>";
@@ -124,15 +121,21 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
             else
              { $r1= $db->query($q2);
                  if($r1->num_rows == 0)
-                 {echo "<h class='err_msg'>password not match your email</h><br/>";}
+                 {
+                     echo "<h class='err_msg'>password not match your email</h><br/>";}
                 else
-                 {echo "successfully login";
-                 session_start();
-                 $_SESSION["email"] = $email;
-                 header("Location: index.php");
-                 $db->close();
-                 exit();
-                  
+                 {
+                     if($r1=$db->query($q3)){                            
+                         echo "successfully login";
+                         session_start();
+                         $_SESSION["email"] = $email;
+                         header("Location: index.php");
+                         $db->close();
+                         exit();
+                     }
+                     else{
+                         echo "<h class='err_msg'>Healthcard number not match your email</h><br/>";}
+                     }
                  }
              } 
         }
