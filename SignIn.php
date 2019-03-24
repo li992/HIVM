@@ -64,7 +64,7 @@
 <td></td>
 </tr>
 </table>
-<input type="hidden" value="" id="healthcard"/>
+<input type="hidden" value="" id="healthcard" name="healthcard"/>
 <input type="submit" value="Sign In" class="sign1" id="Submit" onclick="Validation_HealthCard()" />
 <input type="reset" value="Reset" class="sign2"/>
 </form>
@@ -140,8 +140,6 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
              } 
         }
  
-}
-
 $db->close();
 ?>
 

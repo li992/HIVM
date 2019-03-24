@@ -129,5 +129,5 @@ else
 
 
 <!--end of avaibility area-->
-<script type="text/javascript" src="HIVM_Javascript_CheckAvaibity.js"> </script> 
+<script type="text/javascript" src="js/HIVM_Javascript_CheckAvaibity.js"> </script> 
 </body>
