@@ -5,6 +5,8 @@
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
     <script type="text/javascript">
 	function js_validations(){
+			var lastname = document.getElementById("LastName").value;
+			var firstname = document.getElementById("FirstName").value;
 			var dob = document.getElementById("DOB").value;
 			var healthcard = document.getElementById("HeathCardNumber").value;
 			var phonenum = document.getElementById("PhoneNumber").value;
@@ -12,24 +14,38 @@
 			var password = document.getElementById("password").value;
 			var passwordr = document.getElementById("passwordr").value;
 
-			var reg_dob = /^\d{4}[\/.-]\d{1,2}[\/.-]\d{1,2}$/
+			var reg_dob = /^\d{4}[\/.-]\d{1,2}[\/.-]\d{1,2}$/;
 			var reg_hc= /^[0-9]*$/i;
 			var reg_pn = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 			var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var valid = true;
 
+			if(lastname==NULL||lastname==""){
+				valid=false;
+				alert("Please define your lastname");
+				document.getElementById("LastName").focus();
+				return;
+			}
+
+			if(firstname==NULL||firstname==""){
+				valid=false;
+				alert("Please define your firstname");
+				document.getElementById("FirstName").focus();
+				return;
+			}			
+			
 			if(!reg_dob.test(dob)){
 				valid=false;
 				alert("Please follow the format: YYYY-MM-DD");
 				document.getElementById("DOB").focus();
-				break;
+				return;
 			}
 			
 			if(!reg_hc.test(healthcard)||healthcard.length!=9){
 				valid = false;
 				alert("Healthcard Number must be in 9 digits and pure numbers!");
 				document.getElementById("HeathCardNumber").focus();
-				break;
+				return;
 				}
 
 			if(!reg_pn.test(phonenum)){
@@ -46,21 +62,21 @@
 						"+31636363634\n"+
 						"075-63546725");
 				document.getElementById("PhoneNumber").focus();
-				break;
+				return;
 				}
 
 			if(!reg_email.test(email)){
 				valid = false;
 				alert("Invalid Email format!");
 				document.getElementById("email").focus();
-				break;
+				return;
 				}
 
 			if(passwordr!=password){
 				valid = false;
 				alert("Passwords are not matching!");
 				document.getElementById("passwordr").focus();
-				break;
+				return;
 			}
 
 			if(valid == true){
