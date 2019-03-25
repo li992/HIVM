@@ -5,21 +5,31 @@
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
     <script type="text/javascript">
 	function js_validations(){
+			var dob = document.getElementById("DOB").value;
 			var healthcard = document.getElementById("HeathCardNumber").value;
 			var phonenum = document.getElementById("PhoneNumber").value;
 			var email = document.getElementById("email").value;
 			var password = document.getElementById("password").value;
 			var passwordr = document.getElementById("passwordr").value;
-			
-			var reg_hc= /^[0,9]*&/i;
+
+			var reg_dob = /^\d{4}[\/.-]\d{1,2}[\/.-]\d{1,2}$/
+			var reg_hc= /^[0-9]*$/i;
 			var reg_pn = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 			var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var valid = true;
+
+			if(!reg_dob.test(dob)){
+				valid=false;
+				alert("Please follow the format: YYYY-MM-DD");
+				document.getElementById("DOB").focus();
+				break;
+			}
 			
-			if(!reg_hc.test(healthcard)){
+			if(!reg_hc.test(healthcard)||healthcard.length!=9){
 				valid = false;
 				alert("Healthcard Number must be in 9 digits and pure numbers!");
 				document.getElementById("HeathCardNumber").focus();
+				break;
 				}
 
 			if(!reg_pn.test(phonenum)){
@@ -36,25 +46,25 @@
 						"+31636363634\n"+
 						"075-63546725");
 				document.getElementById("PhoneNumber").focus();
+				break;
 				}
 
 			if(!reg_email.test(email)){
 				valid = false;
 				alert("Invalid Email format!");
 				document.getElementById("email").focus();
+				break;
 				}
 
 			if(passwordr!=password){
 				valid = false;
 				alert("Passwords are not matching!");
 				document.getElementById("passwordr").focus();
+				break;
 			}
 
-			if(valid = true){
+			if(valid == true){
 				document.getElementById("ValidInfo").value = 1;
-			}
-			else{
-				document.getElementById("ValidInfo").vlaue = 0;
 			}
 		}
 	
@@ -173,7 +183,9 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     $pswdr_msg = trim($_POST["passwordr"]);
     $valid_info = trim($_POST["ValidInfo"]);
 
-    if($valid_info==1){
+    echo "<p>'$valid_info'</p>";
+    
+    if($valid_info=="1"){
         $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
     
         if ($db->connect_error)
