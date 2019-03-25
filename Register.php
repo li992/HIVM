@@ -3,6 +3,62 @@
 <head>
  
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
+    <script type="text/javascript">
+	function js_validations(){
+			var healthcard = document.getElementById("HeathCardNumber");
+			var phonenum = document.getElementById("PhoneNumber");
+			var email = document.getElementById("email");
+			var password = document.getElementById("password");
+			var passwordr = document.getElementById("passwordr");
+			
+			var reg_h c= /^[0,9]&/i;
+			var reg_pn = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+			var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			var valid = true;
+			
+			if(!reg_hc.test(healthcard)){
+				valid = false;
+				alert("Healthcard Number must be in 9 digits and pure numbers!");
+				document.getElementById("HeathCardNumber").focus();
+				}
+
+			if(!reg_pn.test(phonenum)){
+				valid = false;
+				alert("Phone Number must be in 9 digits and a format shows below: \n"+
+						"(123) 456-7890\n"+
+						"+(123) 456-7890\n"+
+						"+(123)-456-7890\n"+
+						"+(123) - 456-7890\n"+
+						"+(123) - 456-78-90\n"+
+						"123-456-7890\n"+
+						"123.456.7890\n"+
+						"1234567890\n"+
+						"+31636363634\n"+
+						"075-63546725");
+				document.getElementById("PhoneNumber").focus();
+				}
+
+			if(!reg_email.test(email)){
+				valid = false;
+				alert("Invalid Email format!");
+				document.getElementById("email").focus();
+				}
+
+			if(passwordr!=password){
+				valid = false;
+				alert("Passwords are not matching!");
+				document.getElementById("passwordr").focus();
+			}
+
+			if(valid = true){
+				document.getElementById("ValidInfo").value = 1;
+			}
+			else{
+				document.getElementById("ValidInfo").vlaue = 0;
+			}
+		}
+	
+    </script>
        <link rel="stylesheet" href="css/HIVM_Stylesheet_main.css">
     <link rel="icon" href="./img/core-img/BRAND.png">  
     <title>HIVM Register</title>
@@ -82,7 +138,8 @@ echo "'";
 <td><label id="pswdr_msg" class="err_msg"></label></td>
 <td></td>
 </tr>
-</table>
+</table>'
+<input type="hidden" value="" id="ValidInfo" name="ValidInfo"/>
 <input type="submit" value="Register" class="sign1" />
 <input type="reset" value="Reset" class="sign2"/>
 </form>
@@ -114,7 +171,9 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     $birth_msg = trim($_POST["DOB"]);
     $pswd_msg = trim($_POST["password"]);
     $pswdr_msg = trim($_POST["passwordr"]);
+    $valid_info = trim($_POST["ValidInfo"]);
 
+    if($valid_info==1){
     $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
 
     if ($db->connect_error)
@@ -194,8 +253,8 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
        
         $db->close();
 
-
-}
+    }
+    }
 ?>
 
 
