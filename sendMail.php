@@ -1,15 +1,15 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
+include_once 'PHPMailer/PHPMailer/Exception.php';
+include_once 'PHPMailer/PHPMailer/SMTP.php';
+include_once 'PHPMailer/PHPMailer/Exception.php';
 
 $mail = new PHPMailer(true);
 
 try {
     //Server settings
-    $mail->SMTPDebug = 2;                                       // Enable verbose debug output
-    $mail->isSMTP();                                            // Set mailer to use SMTP
+    //$mail->SMTPDebug = 2;                                       // Enable verbose debug output
+    //$mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = 'qiaoyi096@example.com';                     // SMTP username
