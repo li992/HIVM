@@ -5,13 +5,13 @@
     <script type="text/javascript" src="js/HIVM_Javascript_main.js"> </script>
     <script type="text/javascript">
 	function js_validations(){
-			var healthcard = document.getElementById("HeathCardNumber");
-			var phonenum = document.getElementById("PhoneNumber");
-			var email = document.getElementById("email");
-			var password = document.getElementById("password");
-			var passwordr = document.getElementById("passwordr");
+			var healthcard = document.getElementById("HeathCardNumber").value;
+			var phonenum = document.getElementById("PhoneNumber").value;
+			var email = document.getElementById("email").value;
+			var password = document.getElementById("password").value;
+			var passwordr = document.getElementById("passwordr").value;
 			
-			var reg_h c= /^[0,9]&/i;
+			var reg_hc= /^[0,9]*&/i;
 			var reg_pn = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 			var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var valid = true;
@@ -139,8 +139,8 @@ echo "'";
 <td></td>
 </tr>
 </table>'
-<input type="hidden" value="" id="ValidInfo" name="ValidInfo"/>
-<input type="submit" value="Register" class="sign1" />
+<input type="hidden" value="0" id="ValidInfo" name="ValidInfo"/>
+<input type="submit" value="Register" class="sign1" onclick="js_validations()"/>
 <input type="reset" value="Reset" class="sign2"/>
 </form>
 
@@ -174,84 +174,84 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     $valid_info = trim($_POST["ValidInfo"]);
 
     if($valid_info==1){
-    $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
-
-    if ($db->connect_error)
-    {
-        die ("Connection failed: " . $db->connect_error );
-    }
+        $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
     
-    $q1 = "SELECT * FROM UserInfo WHERE email = '$email_msg'";
-    $r1 = $db->query($q1);
-
-    // if the email address is already taken.
-    if($r1->num_rows > 0)
-    {
-        $validateS = false;
-         echo "<h class='err_msg'>email address is not available. Signup failed.</h> <br/>";
-    }
-    else
-    {
-        $emailMatch = preg_match($reg_Email, $email_msg);
-        if($email_msg == null || $email_msg == "" || $emailMatch == false)
+        if ($db->connect_error)
         {
-            $validateS = false;
-            echo "<h class='err_msg'>email empty or incorrect formula</h><br/>";
-                    }
-        $LastnameMatch=preg_match($reg_Uname,$Lastname_msg);
-       if($Lastname_msg == null || $Lastname_msg == "" || $LastnameMatch == false)
-        {
-            $validateS = false;
-            echo "<h class='err_msg'>Lastname empty or incorrect formula</h><br/>";
-                    }
-               $FirstnameMatch=preg_match($reg_Uname,$Firstname_msg);
-       if($Firstname_msg == null || $Firstname_msg == "" || $FirstnameMatch == false)
-        {
-            $validateS = false;
-            echo "<h class='err_msg'>Firstname empty or incorrect formula</h><br/>";
-                    }        
-              
-
-
-        $bdayMatch = preg_match($reg_Bday, $birth_msg);
-        if($birth_msg == null || $birth_msg == "" || $bdayMatch == false)
-        {
-            $validateS = false;
-            echo "<h class='err_msg'>date of birth empty or incorrect formula</h><br/>";
-
+            die ("Connection failed: " . $db->connect_error );
         }
-
-
         
-        
-        
-    }
-
-    if($validateS == true)
-    {
-        $dateFormatS = date("Y-m-d", strtotime($birth_msg));
-        //add code here to insert a record into the table User;
-        // table User attributes are: email, password, DOB
-        // variables in the form are: emailS, passwordS, dateFormatS, 
-  
-
-           $q2 = "INSERT INTO UserInfo (email, FirstName, LastName , pwd, DOB, Phone, HealthCardNumber, Specialty) VALUES ('$email_msg', '$Firstname_msg', '$Lastname_msg', '$pswd_msg', '$dateFormatS', '$PhoneNumber_msg', '$HeadthCardNumber_msg', 'PATIENT')";
-       
-  
-
-        $r2 = $db->query($q2);
-        
-        if ($r2 === true)
-        {      
-            header("Location: SignIn.php");
+        $q1 = "SELECT * FROM UserInfo WHERE email = '$email_msg'";
+        $r1 = $db->query($q1);
+    
+        // if the email address is already taken.
+        if($r1->num_rows > 0)
+        {
+            $validateS = false;
+             echo "<h class='err_msg'>email address is not available. Signup failed.</h> <br/>";
+        }
+        else
+        {
+            $emailMatch = preg_match($reg_Email, $email_msg);
+            if($email_msg == null || $email_msg == "" || $emailMatch == false)
+            {
+                $validateS = false;
+                echo "<h class='err_msg'>email empty or incorrect formula</h><br/>";
+                        }
+            $LastnameMatch=preg_match($reg_Uname,$Lastname_msg);
+           if($Lastname_msg == null || $Lastname_msg == "" || $LastnameMatch == false)
+            {
+                $validateS = false;
+                echo "<h class='err_msg'>Lastname empty or incorrect formula</h><br/>";
+                        }
+                   $FirstnameMatch=preg_match($reg_Uname,$Firstname_msg);
+           if($Firstname_msg == null || $Firstname_msg == "" || $FirstnameMatch == false)
+            {
+                $validateS = false;
+                echo "<h class='err_msg'>Firstname empty or incorrect formula</h><br/>";
+                        }        
+                  
+    
+    
+            $bdayMatch = preg_match($reg_Bday, $birth_msg);
+            if($birth_msg == null || $birth_msg == "" || $bdayMatch == false)
+            {
+                $validateS = false;
+                echo "<h class='err_msg'>date of birth empty or incorrect formula</h><br/>";
+    
+            }
+    
+    
+            
+            
+            
+        }
+    
+        if($validateS == true)
+        {
+            $dateFormatS = date("Y-m-d", strtotime($birth_msg));
+            //add code here to insert a record into the table User;
+            // table User attributes are: email, password, DOB
+            // variables in the form are: emailS, passwordS, dateFormatS, 
+      
+    
+               $q2 = "INSERT INTO UserInfo (email, FirstName, LastName , pwd, DOB, Phone, HealthCardNumber, Specialty) VALUES ('$email_msg', '$Firstname_msg', '$Lastname_msg', '$pswd_msg', '$dateFormatS', '$PhoneNumber_msg', '$HeadthCardNumber_msg', 'PATIENT')";
+           
+      
+    
+            $r2 = $db->query($q2);
+            
+            if ($r2 === true)
+            {      
+                header("Location: SignIn.php");
+                $db->close();
+                exit();
+            }
+        }
+      
+    
+           
             $db->close();
-            exit();
-        }
-    }
-  
-
-       
-        $db->close();
 
     }
     }
