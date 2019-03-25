@@ -20,7 +20,7 @@ $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also
 $mail->Port = 587;                          // TCP port to connect to
 $mail->SMTPDebug = 2;
 
-$mail->setFrom('no-reply@noreply.com', 'noreply');
+$mail->setFrom('m.v.laposta@gmail.com', 'Test');
 //$mail->addReplyTo('info@example.com', 'CodexWorld');
 $mail->addAddress('mlaposta@sasktel.net');   // Add a recipient
 //$mail->addCC('cc@example.com');
