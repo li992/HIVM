@@ -281,6 +281,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
            
             $db->close();
 
-    }
+    }   
+
     }
 ?>

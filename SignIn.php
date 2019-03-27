@@ -146,6 +146,9 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
         }  
         $db->close();
     }
+    else{
+        echo"<script type='text/javascript>alert('Invalid healthcard number')</script>'";
+    }
 }
 ?>
 
