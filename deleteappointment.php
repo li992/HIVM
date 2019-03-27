@@ -71,7 +71,7 @@ $patient_id=$row1["patient_id"];
                $r5=$db->query($q5);   
                $row5 = $r5->fetch_assoc(); 
                $email=$row5["email"];
- $message="Your appointment on $a_date at $time with $FirstName $LastName , please reschedule.";
+ $message="Your appointment on $a_date at $time with $FirstName $LastName is cancalled, please reschedule.";
 
  
                $q2="delete FROM appointmentDB WHERE appointment_id='$appoinmentid'";  

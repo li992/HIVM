@@ -34,7 +34,7 @@ echo "' /input>";
   for($j=1;$j<=14;$j=$j+1) 
        {  
      
-           $q2="SELECT * FROM appointmentDB WHERE doctor_id  ='$doctro_id' AND appointmen_date='$A_DATE' AND time='$j'";
+           $q2="SELECT * FROM appointmentDB WHERE doctor_id  ='$doctro_id' AND appointmen_date='$A_DATE' AND time='$j' ORDER BY appointmen_date,time";
             $r2=$db->query($q2);
 
 if($j%2==1)
@@ -105,7 +105,7 @@ $db = mysqli_connect("localhost", "feng209j", "qazwsx88", "feng209j");
 
 //appoinment table
             
-               echo"<table id='table_center'>";
+               echo"<table>";
                $TODAY=date("Y-m-d");
                if($TODAY==$A_DATE)
                {echo"<tr><td><h2>Today Appointment:<h2></td></tr>";}
@@ -113,7 +113,7 @@ $db = mysqli_connect("localhost", "feng209j", "qazwsx88", "feng209j");
                {echo"<tr><td><h2>Appointment in $A_DATE:<h2></td></tr>";}
 
                
-               $q2="SELECT * FROM  appointmentDB WHERE doctor_id='$doctro_id' AND appointmen_date='$A_DATE'";  	
+               $q2="SELECT * FROM  appointmentDB WHERE doctor_id='$doctro_id' AND appointmen_date='$A_DATE' ORDER BY appointmen_date,time";  	
                $r2=$db->query($q2);
                if($r2->num_rows == 0)
                {
@@ -166,7 +166,7 @@ $r3=$db->query($q3);
 $row3= $r3->fetch_assoc();
 $Patient_FN=$row3["FirstName"];
 $Patient_LN=$row3["LastName"];
-               echo"<tr><td> $date $time with    Patient: $Patient_FN $Patient_LN </td><td><input type='image' src='./img/bg-img/delete_icon.bmp' alt='delete_icon' class='delete_icon' onclick='deleteappointment(event)' value='$appointment_id']' /></td></tr>";
+               echo"<tr><td><input type='button' value='$date $time with    Patient: $Patient_FN $Patient_LN' onclick='pop_comment(event)'/><input type='hidden' value='$appointment_id'/ ></td><td><input type='image' src='./img/bg-img/delete_icon.bmp' alt='delete_icon' class='delete_icon' onclick='deleteappointment(event)' value='$appointment_id' /></td></tr>";
 
                }
 
@@ -197,7 +197,7 @@ $db = mysqli_connect("localhost", "feng209j", "qazwsx88", "feng209j");
             
                echo"<table class='h3_center'><tr><td><h2>Medicla Histroy:<h2></td></tr>";
                
-               $q2="SELECT * FROM  appointmentDB WHERE appointment_id='$doctro_id'";  	
+               $q2="SELECT * FROM  appointmentDB WHERE appointment_id='$doctro_id' ORDER BY appointmen_date,time";  	
                $r2=$db->query($q2);              
                while($row2 = $r2->fetch_assoc())
                {
@@ -286,7 +286,7 @@ echo "' /input>";
   for($j=1;$j<=14;$j=$j+1) 
        {  
      
-           $q2="SELECT * FROM appointmentDB WHERE doctor_id  ='$doctro_id' AND appointmen_date='$A_DATE' AND time='$j'";
+           $q2="SELECT * FROM appointmentDB WHERE doctor_id  ='$doctro_id' AND appointmen_date='$A_DATE' AND time='$j' ORDER BY appointmen_date,time";
             $r2=$db->query($q2);
 
 if($j%2==1)
@@ -347,9 +347,10 @@ echo"</tr>";
  echo"</table>";
  echo"<a href='./make_appointment.php' style='display:inline-block;' ><h2>Back</h2></a>"; }
     
-	
-           $db->close();
 
 
-            
+
+
+
+            $db->close();         
 ?> 

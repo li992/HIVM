@@ -1,3 +1,12 @@
+<?php
+   session_start(); 
+   if(isset($_SESSION["email"]))
+  {// redirect the user back to the login page
+   header("Location: index.php");
+   exit();
+   }
+?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,21 +28,21 @@
 			var reg_pn = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 			var reg_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var valid = true;
-
-			if(lastname==NULL||lastname==""){
-				valid=false;
-				alert("Please define your lastname");
-				document.getElementById("LastName").focus();
-				return;
-			}
-
-			if(firstname==NULL||firstname==""){
+			if(firstname==null||firstname==""){
 				valid=false;
 				alert("Please define your firstname");
 				document.getElementById("FirstName").focus();
 				return;
 			}			
 			
+
+			if(lastname==null||lastname==""){
+				valid=false;
+				alert("Please define your lastname");
+				document.getElementById("LastName").focus();
+				return;
+			}
+
 			if(!reg_dob.test(dob)){
 				valid=false;
 				alert("Please follow the format: YYYY-MM-DD");
@@ -91,14 +100,6 @@
 </head>
 <body>
 <!-- check if sign in or not --!>
- <?php
-   session_start(); 
-   if(isset($_SESSION["email"]))
-  {// redirect the user back to the login page
-   header("Location: index.php");
-   exit();
-   }
- ?>
 
 
 
@@ -134,7 +135,7 @@ $a_date = date("Y-m-d");
 echo $a_date;
 echo "'";
 ?>
- value="yyyy-mm-dd"/></td>
+ value="yyyy-MM-dd"/></td>
 <td><label id="DOB_msg" class="err_msg"></label></td>
 </tr>
 <tr>
@@ -169,6 +170,8 @@ echo "'";
 <input type="submit" value="Register" class="sign1" onclick="js_validations()"/>
 <input type="reset" value="Reset" class="sign2"/>
 </form>
+</body>
+</html>
 
 
 <!-- respond to submit form -->
@@ -199,7 +202,7 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     $pswdr_msg = trim($_POST["passwordr"]);
     $valid_info = trim($_POST["ValidInfo"]);
 
-    echo "<p>'$valid_info'</p>";
+  //  echo "<p>'$valid_info'</p>";
     
     if($valid_info=="1"){
         $db = new mysqli("localhost", "feng209j", "qazwsx88", "feng209j");
@@ -264,16 +267,13 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
       
     
                $q2 = "INSERT INTO UserInfo (email, FirstName, LastName , pwd, DOB, Phone, HealthCardNumber, Specialty) VALUES ('$email_msg', '$Firstname_msg', '$Lastname_msg', '$pswd_msg', '$dateFormatS', '$PhoneNumber_msg', '$HeadthCardNumber_msg', 'PATIENT')";
-           
-      
-    
-            $r2 = $db->query($q2);
-            
-            if ($r2 === true)
+               $r2 = $db->query($q2);
+               $db->close();
+ echo"<script> location.replace('SignIn.php'); </script>";
+               exit();
+
+            if ($r2===true)
             {      
-                header("Location: SignIn.php");
-                $db->close();
-                exit();
             }
         }
       
@@ -284,7 +284,3 @@ if (isset($_POST["submittedS"]) && $_POST["submittedS"])
     }
     }
 ?>
-
-
-</body>
-</html>

@@ -26,7 +26,10 @@
                $row = $r1->fetch_assoc();
                $FisrtName=$row['FirstName'];
                $LastName=$row["LastName"];
-               echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";
+                if($row["Specialty"]!="PATIENT")
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Patient Search </h1> </a>";}
+               else
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";}
                echo"<a href='./userdetail.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
                echo"<a href='./SignOut.php'><h1 id='Signoutbutton_header'>SignOut </h1> </a>";
                   $db->close();
@@ -67,17 +70,23 @@ echo"<section id='Select_Specailty'>";
 echo"<span class='check_span' style='text-align:center;'>Select Specailty</span>";
 echo"<div class='Appointment_table'> <table>";
 
-
+$Specialty_array=array();
 while($row2 = mysqli_fetch_array($r2))
 {
 
 $doctor_id=$row2["doctor_id"];
-  $q3="SELECT * FROM UserInfo WHERE user_id='$doctor_id'"; 
-  $r3=$db->query($q3);
- $row3 = $r3->fetch_assoc();
+$q3="SELECT * FROM UserInfo WHERE user_id='$doctor_id'"; 
+$r3=$db->query($q3);
+$row3 = $r3->fetch_assoc();
 $Specialty=$row3["Specialty"];
-
-echo"<tr><td><h3 style='text-align: center;'>$Specialty</h3></td><td><input type='checkbox' value='$Specialty' class='Specialty2'></td></tr>";
+$repeat=1;
+foreach ($Specialty_array as $val){ 
+if($Specialty==$val)
+{$repeat=0;}
+  } 
+$Specialty_array[]=$Specialty;
+if($repeat==1)
+{echo"<tr><td><h3 style='text-align: center;'>$Specialty</h3></td><td><input type='checkbox' value='$Specialty' class='Specialty2'></td></tr>";}
 }
 echo"</table></div>";
 echo"</section>";
@@ -108,19 +117,35 @@ echo"</section>";
 echo"</section>";
 }
 
-}
 else
 {
 
 
+echo"<section id='indent-1'>";
+echo"<section id='Select_Specailty'>";
+echo"<select >
+  <option value='Serach_by_name'>Serach by name</option>
+  <option value='Serach_by_hc'>Serach by health card number</option>
+</select>";
+echo "<input type='text' oninput='Serachpatient(event)'/>";
+echo"<div id='showreturnarea'/>";
+echo"</section>";
+
+echo"<section id='Select_Doctor'>";
+echo"</section>";
+echo"</section>";
+
+echo"<section id='calender'>";
+echo"<section id='Detail Column'>";
+echo"</section>";
+echo"</section>";
 
 
 
 
 
 
-
-
+}
 
 
 }

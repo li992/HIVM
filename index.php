@@ -26,7 +26,10 @@
                $row = $r1->fetch_assoc();
                $FisrtName=$row['FirstName'];
                $LastName=$row["LastName"];
-               echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";
+                if($row["Specialty"]!="PATIENT")
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Patient Search </h1> </a>";}
+               else
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";}
                echo"<a href='./userdetail.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
                echo"<a href='./SignOut.php'><h1 id='Signoutbutton_header'>SignOut </h1> </a>";
                }
@@ -78,7 +81,7 @@ if($user_id=$row["Specialty"]=="PATIENT")
                 $user_id=$row["user_id"];
                echo"<table id='table_center'>";
                echo"<tr><td><h2>Your Appointment:</h2></td></tr>";
-               $q2="SELECT * FROM  appointmentDB WHERE patient_id='$user_id'";  	
+               $q2="SELECT * FROM  appointmentDB WHERE patient_id='$user_id' ORDER BY appointmen_date,time";  	
                $r2=$db->query($q2);
                if($r2->num_rows == 0)
                {
@@ -163,11 +166,11 @@ $Doctor_LN=$row3["LastName"];
 echo"<input type='hidden' value='";echo $user_id; echo"' id='onlyDoctor'/>";
 echo"<section id='indent-1'>";
               //appoinment table
-               
-               echo"<table id='table_center'>";
+echo"<section id='Select_Doctor' >";              
+               echo"<table>";
                echo"<tr><td><h2>Today Appointment:</h2></td></tr>";
-                $TODAY=date(Y,m,d);
-               $q2="SELECT * FROM  appointmentDB WHERE doctor_id='$user_id' AND appointmen_date='$TODAY'";  	
+$TODAY=date("Y-m-d");
+               $q2="SELECT * FROM  appointmentDB WHERE doctor_id='$user_id' AND appointmen_date='$TODAY' ORDER BY appointmen_date,time";  	
                $r2=$db->query($q2);
                if($r2->num_rows == 0)
                {
@@ -177,7 +180,7 @@ echo"<section id='indent-1'>";
                while($row2 = $r2->fetch_assoc())
                {
                $date=$row2["appointmen_date"];
-               $patient_id=$row2["$patient_id"];
+               $patient_id=$row2["patient_id"];
  $appointment_id=$row2['appointment_id'];
 //translate time index to time period
 
@@ -219,12 +222,82 @@ $r3=$db->query($q3);
 $row3= $r3->fetch_assoc();
 $Patient_FN=$row3["FirstName"];
 $Patient_LN=$row3["LastName"];
-               echo"<tr><td> $date $time with    Patient: $Patient_FN $Patient_LN </td><td><input type='image' src='./img/bg-img/delete_icon.bmp' alt='delete_icon' class='delete_icon' onclick='deleteappointment(event)' value=' $appointment_id'/ ></td></a></tr>";
+               echo"<tr><td> <input type='button' value='$date $time with    Patient: $Patient_FN $Patient_LN' onclick='pop_comment(event)'/><input type='hidden' value=' $appointment_id'/ ></td><td><input type='image' src='./img/bg-img/delete_icon.bmp' alt='delete_icon' class='delete_icon' onclick='deleteappointment(event)' value=' $appointment_id'/ ></td></a></tr>";
 
                }
 
                echo"</table></section>";
 
+
+echo"<section id='Select_Specailty'>";
+echo"<div style='border-style: solid; width:90%;  background-color: coral;'/>";
+echo"<h2>Upcoming Appointment:</h2>";
+
+echo"<table>";
+$TODAY=date("Y-m-d");
+
+$INTHREEDATS=date("Y-m-d",strtotime(' +2 day')); 
+
+               $q2="SELECT * FROM  appointmentDB WHERE doctor_id='$user_id' AND appointmen_date >='$TODAY' AND appointmen_date <= '$INTHREEDATS' ORDER BY appointmen_date,time ";  	
+               $r2=$db->query($q2);
+               while($row2 = $r2->fetch_assoc())
+               {
+               $date=$row2["appointmen_date"];
+               $patient_id=$row2["patient_id"];
+ $appointment_id=$row2['appointment_id'];
+//translate time index to time period
+
+ switch ($row2["time"]) {
+        case 1: $time= "9:00~9:30";
+                break;
+         case 2: $time= "9:30~10:00";
+                break;
+        case 3: $time= "10:00~10:30";
+                break;
+        case 4: $time= "10:30~11:00";
+                break;
+        case 5: $time= "11:00~11:30";
+                break;
+        case 6: $time= "13:00~13:30";
+                break;
+        case 7: $time= "13:30~14:00";
+                break;
+        case 8: $time= "14:00~14:30";
+                break;
+        case 9: $time= "14:30~15:00";
+                break;
+        case 10: $time= "15:00~15:30";
+                break;
+        case 11: $time= "15:30~16:00";
+                break;
+        case 12: $time= "16:00~16:30";
+                break;
+        case 13: $time= "16:30~15:00";
+                break;
+        case 14: $time= "17:00~17:30";
+                break;
+        }          
+
+
+//get dotcto infromation 
+$q3="SELECT * FROM UserInfo WHERE user_id='$patient_id'";  	
+$r3=$db->query($q3);
+$row3= $r3->fetch_assoc();
+$Patient_FN=$row3["FirstName"];
+$Patient_LN=$row3["LastName"];
+               echo"<tr><td> $date $time with    Patient: $Patient_FN $Patient_LN </td></tr>";
+
+               }
+
+               echo"</table>";
+
+
+echo"</div>";
+echo"</section>";
+//end of 
+
+echo"</section>";
+//end of left are
 
 //right select area start
 echo"<section id='calender'>";
@@ -306,11 +379,24 @@ $i=$i+1;
 
 
 echo"</table>";
+
+
+
 echo"</section>";
 
 
 
 
+echo"<div class='form-popup' id='myForm'>
+  <form action='./Updatecomment.php' class='form-container'  method='post' enctype='multipart/form-data'>
+<input type='hidden' name='submittedS' value='1'/>
+    <h1>COMMENT</h1>
+    <textarea  placeholder='Enter comment' name='comment' rows='5' cols='35'  required></textarea>
+    <input type='hidden'  value='' id='popupappointment' name='popupappointment'>
+    <button type='submit' class='btn'>Submit</button>
+    <button type='button' class='btn cancel' onclick='closeForm()'>Close</button>
+  </form>
+</div>";
 
 
 

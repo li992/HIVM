@@ -26,7 +26,10 @@
                $row = $r1->fetch_assoc();
                $FisrtName=$row['FirstName'];
                $LastName=$row["LastName"];
-               echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";
+                if($row["Specialty"]!="PATIENT")
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Patient Search </h1> </a>";}
+               else
+               {echo"<a href='./Medical_History.php'><h1 id='Medical_Historybutton_header'> Medical History </h1> </a>";}
                echo"<a href='./index.php' class ='blacklink'><h2 id='name'> $FisrtName  $LastName</h2></a>";
                echo"<a href='./SignOut.php'><h1 id='Signoutbutton_header'>SignOut </h1> </a>";
                }

@@ -279,7 +279,7 @@ xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 
 
-var element=document.getElementById("indent-1");
+var element=document.getElementById("Select_Doctor");
 element.innerHTML=this.responseText;
 
 
@@ -311,7 +311,7 @@ var doctor_name= document.getElementById("time_doctor_name").value;
 var a_date= document.getElementById("time_date").value;
 var inner="";
 
-inner=inner+"<form method='post'  action='./comfireappointment.php'>"+
+inner=inner+"<form method='post'  action='./confirmappointment.php'>"+
            "<input type='hidden' name='submittedS' value='1'/>"+
         "<table id='table_center'>"+
       "<tr><td>Doctor name:</td>"+"<td><input type='text' name='Doctorname' disabled value='"+doctor_name+"'> </td></tr>"+
@@ -367,7 +367,7 @@ inner=inner+"'> </td></tr></table>";
          inner=inner+"<input type='hidden' name='TimeIndex' value='"+a_time+"'>"+
          "<input type='hidden' name='Date'  value='"+a_date+"'>"+
         "<input type='hidden' name='DoctorId' value='"+doctor_id+"'> <br>"+
-        "<input type='submit' id='check_submit' style='margin-left:45%;' value='Comfire  Request'></></form> ";  
+        "<input type='submit' id='check_submit' style='margin-left:45%;' value='Confirm  Request'></></form> ";  
 document.getElementById("select_area").innerHTML=inner;
 
 
@@ -436,8 +436,8 @@ inner=inner+"<table>";
   
 inner=inner+"<tr><td><h3 style='text-align:center; '>"
              +json_result[0].toString()+" "+json_result[1].toString()+" "+json_result[2].toString()+" "+json_result[4].toString()+" "+json_result[5].toString()+" "
-             +"</h3></td><td><input type='checkbox' value='"
-             +json_result[3].toString()+"' class='appointment' onchange='History_update(event)'></td></tr>";
+             +"</h3></td><td><input type='button' onclick='History_update(event)' style='background-color: #4CAF50;' value='click'><input type='hidden' value='"
+             +json_result[3].toString()+"' class='appointment'/></td></tr>";
 
 
 
@@ -473,7 +473,7 @@ function History_update(event)
 
 
 
-var x = event.target.value;
+var x = event.target.nextSibling.value;
 
 
 
@@ -498,4 +498,196 @@ element.innerHTML=this.responseText;
 
 
 
+}
+
+
+
+
+
+
+
+function Serachpatient(event)
+{
+
+
+var type = event.target.previousSibling.value;
+var inputtext=event.target.value.trim();
+
+
+if(type=="Serach_by_name")
+{
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("showreturnarea");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+0);
+
+
+}
+
+else if (type=="Serach_by_hc")
+{
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("showreturnarea");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+1);
+
+
+}
+
+
+
+}
+
+
+
+function detailinformation(event)
+{
+
+
+
+
+
+var inputtext = event.target.nextSibling.value;
+
+
+
+
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("Select_Doctor");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+2);
+
+
+
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("Detail Column");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+3);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function appointment_list(event)
+{
+
+var inputtext = event.target.nextSibling.value;
+
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("Detail Column");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+4);
+
+
+}
+
+
+
+function backto_list()
+{
+
+var inputtext =document.getElementById("patient_id").value;
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+var element=document.getElementById("Detail Column");
+element.innerHTML=this.responseText;
+
+
+    }
+};
+         xmlhttp.open("POST", "./Serachpatient.php", true);
+         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xmlhttp.send("inputtext="+inputtext+"&type="+3);
+
+
+
+}
+
+
+function pop_comment(event)
+{
+var inputtext = event.target.nextSibling.value;
+
+document.getElementById("popupappointment").value=inputtext;
+
+document.getElementById("myForm").style.display = "block";
+
+}
+
+
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
 }
